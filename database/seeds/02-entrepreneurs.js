@@ -4,7 +4,7 @@ exports.seed = function (knex) {
     .truncate()
     .then(function () {
       return knex('entrepreneurs').insert([
-        { email: 'test@ent.com', password: 'testtest' }
+        { email: 'test@test.com', password: '$2a$08$IFF7gxDV3Hz/tupxgDuvzel5O.aZhl.IqKduRWBaqGkJqySHIOdPi' }
       ]);
     });
 };
