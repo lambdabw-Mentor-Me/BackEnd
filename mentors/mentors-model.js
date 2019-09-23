@@ -9,15 +9,15 @@ module.exports = {
 };
 
 function find() {
-    return db('entrepreneurs').select('id', 'email', 'password');
+    return db('mentors').select('id', 'email', 'password');
 }
 
 function findBy(filter) {
-    return db('entrepreneurs').where(filter);
+    return db('mentors').where(filter);
 }
 
 function add(user) {
-    return db('entrepreneurs')
+    return db('mentors')
         .insert(user, 'id')
         .then(ids => {
             const [id] = ids;
@@ -26,7 +26,7 @@ function add(user) {
 }
 
 function findById(id) {
-    return db('entrepreneurs')
+    return db('mentors')
         .where({ id })
         .first();
 }

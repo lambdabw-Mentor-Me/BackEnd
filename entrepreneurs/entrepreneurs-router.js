@@ -6,16 +6,16 @@ const session = require('express-session'); // <<<<<<<<<<<<<<<<<<<<<
 const KnexSessionStore = require('connect-session-knex')(session); // gotcha
 const jwt = require('jsonwebtoken');
 
-const db = require('./data/dbConfig.js');
-const Users = require('./users/users-model.js');
-const restricted = require('./auth/restricted-middleware.js');
-const dbConnection = require('./data/dbConfig.js');
-const secrets = require('./config/secret.js');
+
+const Users = require('./entrepreneurs-model.js');
+const restricted = require('../auth/restricted-middleware.js');
+const dbConnection = require('../database/dbConfig.js');
+const secrets = require('../config/secret.js');
 
 const server = express();
 
 const sessionConfig = {
-    name: 'abdiwali', // would name the cookie sid by default
+    name: 'mentorme', // would name the cookie sid by default
     secret: process.env.SESSION_SECRET || 'keep it secret, keep it safe',
     cookie: {
         maxAge: 1000 * 60 * 60, // in milliseconds
@@ -40,30 +40,31 @@ server.use(session(sessionConfig)); // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
 server.post('/register', (req, res) => {
-    let { username, password } = req.body;
+    let { email, password } = req.body;
 
     const hash = bcrypt.hashSync(password, 8); // it's 2 ^ 8, not 8 rounds
 
-    Users.add({ username, password: hash })
+    Users.add({ email, password: hash })
         .then(saved => {
             res.status(201).json(saved);
         })
         .catch(error => {
+            console.log(error);
             res.status(500).json(error);
         });
 });
 
 server.post('/login', (req, res) => {
-    let { username, password } = req.body;
+    let { email, password } = req.body;
 
-    Users.findBy({ username })
+    Users.findBy({ email })
         .first()
         .then(user => {
             if (user && bcrypt.compareSync(password, user.password)) {
                 const token = generateToken(user);
 
                 req.session.user = user; // <<<<<<<<<<<<<<<
-                res.status(200).json({ message: `Welcome ${user.username}!`, token });
+                res.status(200).json({ message: `Welcome ${user.email}!`, token });
             } else {
                 res.status(401).json({ message: 'You cannot pass!' });
             }
@@ -76,7 +77,7 @@ server.post('/login', (req, res) => {
 function generateToken(user) {
     const payload = {
         subject: user.id, // sub in payload is what the token is about
-        username: user.username,
+        email: user.email,
         // ...otherData
     };
 
@@ -122,7 +123,6 @@ server.get('/logout', (req, res) => {
     }
 });
 
-const port = process.env.PORT || 5000;
-server.listen(port, () => console.log(`\n** Running on port ${port} **\n`));
+module.exports = server;
 
 
