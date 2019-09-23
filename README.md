@@ -5,9 +5,9 @@
 Learn from great mentors and apply their knowledge to your journey to entrepreneurship.
 
 ## Overview
-This API is used as part of the application _MENTOR_ME_ and allows for CRUD operations to be preformed on the users _ and_Questions_. 
+This API is used as part of the application _MENTOR_ME_ and allows for CRUD operations to be preformed on the Users _ Questions_ and _ Replies. 
 
-This documentation will cover all of the data models and endpoints which can be access via
+This documentation will cover all of the data models and endpoints which can be access via:
 > <The Herokuapp URL HERE>
 
 # Endpoints
@@ -17,7 +17,7 @@ This documentation will cover all of the data models and endpoints which can be 
 | Request Type | Endpoint       | Description   |
 |:------------:|:--------------:|:-------------:|
 | POST         | /ent/register | Creates User  |
-| POST         | /ent/login    | Creates JWT*  |
+| POST         | /ent/login    | Logs In User  |
 
 * JSON Web Tokens Used to Verify Users
 
@@ -34,8 +34,8 @@ This documentation will cover all of the data models and endpoints which can be 
 
 | Field        | Type      | Required   | Unique     |
 |:------------:|:---------:|:----------:|:----------:|
-| email        | String    |  true      | true       |
-| password     | String    |  true      | false      |
+| email        | varchar   |  true      | true       |
+| password     | varchar   |  true      | false      |
 
 ### Login
 
@@ -50,6 +50,6 @@ This documentation will cover all of the data models and endpoints which can be 
 
 | Field        | Type      | Required   | Unique     |
 |:------------:|:---------:|:----------:|:----------:|
-| email        | String    |  true      | true       |
-| password     | String    |  true      | false      |
+| email        | varchar   |  true      | true       |
+| password     | varchar   |  true      | false      |
 
