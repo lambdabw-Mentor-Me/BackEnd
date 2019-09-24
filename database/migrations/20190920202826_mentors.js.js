@@ -23,7 +23,7 @@ exports.up = function (knex, Promise) {
                 .unsigned()
                 .references('id')
                 .inTable('entrepreneurs')
-                .onDelete('RESTRICT') // if the PK record is deleted
+                .onDelete('CASCADE') // if the PK record is deleted
                 .onUpdate('CASCADE'); // if the PK value updates
         })
         .createTable('replies', tbl => {
