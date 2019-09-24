@@ -129,6 +129,50 @@ This documentation will cover all of the data models and endpoints which can be 
 }
 ```
 
-| Field        | Type      | Required   | Unique     |
-|:------------:|:---------:|:----------:|:----------:|
-| questions    | String    |  true      | false      |
+| Field            | Type      | Required   | Unique     |
+|:----------------:|:---------:|:----------:|:----------:|
+| title            | String    |  true      | false      |
+| question         | String    |  true      | false      |
+| business_type    | String    |  false     | false      |
+| entrepreneur_id  | String    |  true      | false      |
+
+
+* A __POST__ request to the `/questions/` endpoint expects to receive an object as follows: 
+
+```javascript
+{
+    "id": "ID of the question",
+    "title": "Title of the Question", 
+    "question": "The question body", 
+    "business_type": "The Type", 
+    "entrepreneur_id": "ID of the user posted the question"
+}
+```
+
+| Field            | Type      | Required   | Unique     |
+|:----------------:|:---------:|:----------:|:----------:|
+| title            | String    |  true      | false      |
+| question         | String    |  true      | false      |
+| business_type    | String    |  false     | false      |
+| entrepreneur_id  | String    |  true      | false      |
+
+* A __PUT__ request to the `/questions/:id` endpoint expects to receive an object as follows: 
+
+```javascript
+{
+    "id": "ID of the question",
+    "title": "Title of the Question", 
+    "question": "The question body", 
+    "business_type": "The Type", 
+    "entrepreneur_id": "ID of the user posted the question"
+}
+```
+
+| Field            | Type      | Required   | Unique     |
+|:----------------:|:---------:|:----------:|:----------:|
+| title            | String    |  true      | false      |
+| question         | String    |  true      | false      |
+| business_type    | String    |  false     | false      |
+| entrepreneur_id  | String    |  true      | false      |
+
+* A __DELETE__ request to the `/questions/:id` endpoint deletes the question that corresponds to that id, this action can not be undone.
