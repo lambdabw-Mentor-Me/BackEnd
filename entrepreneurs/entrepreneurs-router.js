@@ -7,7 +7,7 @@ const KnexSessionStore = require('connect-session-knex')(session); // gotcha
 const jwt = require('jsonwebtoken');
 
 
-const Users = require('./entrepreneurs-model.js');
+const entrepreneurs = require('./entrepreneurs-model.js');
 const restricted = require('../auth/restricted-middleware.js');
 const dbConnection = require('../database/dbConfig.js');
 const secrets = require('../config/secret.js');
@@ -44,7 +44,7 @@ server.post('/register', (req, res) => {
 
     const hash = bcrypt.hashSync(password, 8); // it's 2 ^ 8, not 8 rounds
 
-    Users.add({ email, password: hash })
+    entrepreneurs.add({ email, password: hash })
         .then(saved => {
             res.status(201).json(saved);
         })
@@ -54,46 +54,67 @@ server.post('/register', (req, res) => {
         });
 });
 
+// server.post('/login', (req, res) => {
+//     let { email, password } = req.body;
+
+//     entrepreneurs.findBy({ email })
+//         .first()
+//         .then(entrepreneur => {
+//             if (entrepreneur && bcrypt.compareSync(password, entrepreneur.password)) {
+//                 const token = generateToken(entrepreneur);
+
+//                 req.session.entrepreneur = entrepreneur; // <<<<<<<<<<<<<<<
+//                 res.status(200).json({ message: `Welcome ${entrepreneur.email}!`, token });
+//             } else {
+//                 res.status(401).json({ message: 'You cannot pass!' });
+//             }
+//         })
+//         .catch(error => {
+//             res.status(500).json(error);
+//         });
+// });
+
+
 server.post('/login', (req, res) => {
     let { email, password } = req.body;
 
-    Users.findBy({ email })
+    entrepreneurs.findBy({ email })
         .first()
-        .then(user => {
-            if (user && bcrypt.compareSync(password, user.password)) {
-                const token = generateToken(user);
+        .then(entrepreneur => {
 
-                req.session.user = user; // <<<<<<<<<<<<<<<
-                res.status(200).json({ message: `Welcome ${user.email}!`, token });
+            if (entrepreneur && bcrypt.compareSync(password, entrepreneur.password)) {
+                const token = getJwt(entrepreneur);
+                console.log(getJwt(entrepreneur));
+                let id = entrepreneur.id
+                res.status(200).json({ message: `Welcome ${entrepreneur.email}!`, token, id });
             } else {
-                res.status(401).json({ message: 'You cannot pass!' });
+                res.status(401).json({ message: 'Invalid Credentials' })
             }
         })
-        .catch(error => {
-            res.status(500).json(error);
+        .catch(err => {
+            res.status(500).json(err);
         });
 });
 
-function generateToken(user) {
+
+
+function getJwt(entrepreneur) {
     const payload = {
-        subject: user.id, // sub in payload is what the token is about
-        email: user.email,
-        // ...otherData
+        subject: entrepreneur.id,
+        email: entrepreneur.email,
+        jwtid: 1,
     };
-
     const options = {
-        expiresIn: '1d', // show other available options in the library's documentation
-    };
-
-    // extract the secret away so it can be required and used where needed
-    return jwt.sign(payload, secrets.jwtSecret, options); // this method is synchronous
+        expiresIn: '8h',
+    }
+    return jwt.sign(payload, secrets.jwtSecret, options);
 }
 
 
 server.get('/all', restricted, (req, res) => {
-    Users.find()
-        .then(users => {
-            res.json(users);
+    entrepreneurs.find()
+        .then(entrepreneurs => {
+            res.json(entrepreneurs);
         })
         .catch(err => res.send(err));
 });

@@ -19,18 +19,11 @@ exports.up = function (knex, Promise) {
             tbl.string('file', 255);
             // Foreign Key
             tbl
-                .integer('mentor_id')
-                .unsigned()
-                .references('id')
-                .inTable('mentors')
-                .onDelete('CASCADE') // if the PK record is deleted
-                .onUpdate('CASCADE'); // if the PK value updates
-            tbl
                 .integer('entrepreneur_id')
                 .unsigned()
                 .references('id')
                 .inTable('entrepreneurs')
-                .onDelete('CASCADE') // if the PK record is deleted
+                .onDelete('RESTRICT') // if the PK record is deleted
                 .onUpdate('CASCADE'); // if the PK value updates
         })
         .createTable('replies', tbl => {

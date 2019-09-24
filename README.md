@@ -103,4 +103,32 @@ This documentation will cover all of the data models and endpoints which can be 
 
 ### GET USERS
 
-* A __GET__ request to the `ment/all` endpoint ex
+* A __GET__ request to the `ment/all` endpoint for all mentors.
+
+
+
+## QUESTIONS
+
+| Request Type | Endpoint      | Description            |
+|:------------:|:-------------:|:----------------------:|
+| GET          | /questions/   | Gets all Questions     |
+| GET          | /questions/:id| Gets questions by ID   |
+
+
+### Questions Request
+
+* A __GET__ request to the `/questions/` endpoint expects to receive an object as follows: 
+
+```javascript
+{
+    "id": "ID of the question",
+    "title": "Title of the Question", 
+    "question": "The question body", 
+    "business_type": "The Type", 
+    "entrepreneur_id": "ID of the user posted the question"
+}
+```
+
+| Field        | Type      | Required   | Unique     |
+|:------------:|:---------:|:----------:|:----------:|
+| questions    | String    |  true      | false      |
