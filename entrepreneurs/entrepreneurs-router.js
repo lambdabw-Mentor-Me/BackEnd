@@ -54,26 +54,6 @@ server.post('/register', (req, res) => {
         });
 });
 
-// server.post('/login', (req, res) => {
-//     let { email, password } = req.body;
-
-//     entrepreneurs.findBy({ email })
-//         .first()
-//         .then(entrepreneur => {
-//             if (entrepreneur && bcrypt.compareSync(password, entrepreneur.password)) {
-//                 const token = generateToken(entrepreneur);
-
-//                 req.session.entrepreneur = entrepreneur; // <<<<<<<<<<<<<<<
-//                 res.status(200).json({ message: `Welcome ${entrepreneur.email}!`, token });
-//             } else {
-//                 res.status(401).json({ message: 'You cannot pass!' });
-//             }
-//         })
-//         .catch(error => {
-//             res.status(500).json(error);
-//         });
-// });
-
 
 server.post('/login', (req, res) => {
     let { email, password } = req.body;
