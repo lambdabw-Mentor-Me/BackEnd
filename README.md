@@ -176,3 +176,69 @@ This documentation will cover all of the data models and endpoints which can be 
 | entrepreneur_id  | String    |  true      | false      |
 
 * A __DELETE__ request to the `/questions/:id` endpoint deletes the question that corresponds to that id, this action can not be undone.
+
+
+## REPLIES
+
+| Request Type | Endpoint               | Description                   |
+|:------------:|:----------------------:|:-----------------------------:|
+| GET          | /replies/              | Gets all replies              |
+| GET          | /question/:question_id | Gets replies of that question |
+| GET          | /ment/:mentor_id       | Gets replies of that Mentor   |
+
+
+### Reply Request
+
+* A __GET__ request to the `/replies/` endpoint expects to receive an object as follows: 
+
+```javascript
+{
+    "id": "ID of the reply",
+    "reply": "The reply body", 
+    "question_id": "ID of the question getting answered", 
+    "mentor_id": "ID of the mentor writing the reply"
+    }
+```
+
+| Field            | Type      | Required   | Unique     |
+|:----------------:|:---------:|:----------:|:----------:|
+| reply            | String    |  false     | false      |
+| question_id      | String    |  false     | false      |
+| mentor_id        | String    |  false     | false      |
+
+
+* A __POST__ request to the `/replies/` endpoint expects to receive an object as follows: 
+
+```javascript
+{
+    "id": "ID of the reply",
+    "reply": "The reply body", 
+    "question_id": "ID of the question getting answered", 
+    "mentor_id": "ID of the mentor writing the reply
+}
+```
+
+| Field            | Type      | Required   | Unique     |
+|:----------------:|:---------:|:----------:|:----------:|
+| reply            | String    |  false     | false      |
+| question_id      | String    |  false     | false      |
+| mentor_id        | String    |  false     | false      |
+
+* A __PUT__ request to the `/replies/:id` endpoint expects to receive an object as follows: 
+
+```javascript
+{
+    "reply": "The reply body", 
+    "question_id": "ID of the question getting answered", 
+    "mentor_id": "ID of the mentor writing the reply
+}
+```
+
+| Field            | Type      | Required   | Unique     |
+|:----------------:|:---------:|:----------:|:----------:|
+| reply            | String    |  false     | false      |
+| question_id      | String    |  false     | false      |
+| mentor_id        | String    |  false     | false      |
+
+* A __DELETE__ request to the `/replies/:id` endpoint deletes the reply that corresponds to that id, this action can not be undone.
+

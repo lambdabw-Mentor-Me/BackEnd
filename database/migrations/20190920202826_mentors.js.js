@@ -37,6 +37,13 @@ exports.up = function (knex, Promise) {
                 .inTable('questions')
                 .onDelete('CASCADE') // if the PK record is deleted
                 .onUpdate('CASCADE'); // if the PK value updates
+            tbl
+                .integer('mentor_id')
+                .unsigned()
+                .references('id')
+                .inTable('mentors')
+                .onDelete('CASCADE') // if the PK record is deleted
+                .onUpdate('CASCADE'); // if the PK value updates
         })
 
 };
