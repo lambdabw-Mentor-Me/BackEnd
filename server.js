@@ -8,6 +8,7 @@ const KnexSessionStore = require('connect-session-knex')(session);
 const mentorsRouter = require('./mentors/mentors-router.js');
 const entRouter = require('./entrepreneurs/entrepreneurs-router.js');
 const questionsRouter = require('./questions/questions-router.js');
+const repliesRouter = require('./replies/reply-router.js');
 const dbConnection = require('./database/dbConfig');
 
 const server = express();
@@ -41,5 +42,6 @@ server.use(session(sessionConfig));
 server.use('/api/ment', mentorsRouter);
 server.use('/api/ent', entRouter);
 server.use('/api/questions', questionsRouter);
+server.use('/api/replies', repliesRouter);
 
 module.exports = server;
