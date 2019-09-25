@@ -109,10 +109,10 @@ This documentation will cover all of the data models and endpoints which can be 
 
 ## QUESTIONS
 
-| Request Type | Endpoint      | Description            |
-|:------------:|:-------------:|:----------------------:|
-| GET          | /questions/   | Gets all Questions     |
-| GET          | /questions/:id| Gets questions by ID   |
+| Request Type | Endpoint                    | Description            |
+|:------------:|:---------------------------:|:----------------------:|
+| GET          | /questions/                 | Gets all Questions     |
+| GET          | /questions/:entrepreneur_id | Gets questions by ID   |
 
 
 ### Questions Request
